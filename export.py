@@ -33,5 +33,17 @@ def print_msg(msg):
         with open(file_ab_path, "a+") as f:
             word = "%s %s:%s\n" % (create_time, name, msg.text)
             f.write(word.encode('utf-8'))
+    elif msg.type == SHARING:
+        art_list = msg.articles
+        for itm in art_list:
+            print itm.url + ' ' + itm.title + ' ' +itm.summary
+    elif msg.type in (PICTURE, VIDEO):
+        ct = msg.create_time.strftime('%Y-%m-%d-%H-%M-%S')
+        if msg.type == PICTURE:
+            msg.get_file('%s.jpg' % (ct))
+        elif msg.type == VIDEO:
+           msg.get_file('%s.mp4' % (ct))
+            
+        
 
 bot.join()
